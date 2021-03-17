@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Chat from './components/Chat';
+import Navbar from './components/Navbar';
+import {ChatContext} from './context/ChatProvider'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+  const {usuario} = React.useContext(ChatContext)
+  return usuario !== null ? (
+    <div>
+      <Navbar/>
+      <h2 className="text-center m-4">Chat de mensajes</h2>
+      {
+        usuario.estado === true ? <Chat/> : (
+          <div className="lead text-center mt-5">
+            Debes Iniciar sesión con una cuenta Google para entrar al chat.
+          </div>
+        )
+      }
     </div>
-  );
+  ): ( <div>Cargando...</div> )
 }
 
 export default App;
